@@ -13,11 +13,9 @@
             background-repeat: no-repeat; background-position: center;
         }
 
-        /* Margen 98% definido */
         @media (min-width: 601px) { body { background-image: url('https://res.cloudinary.com/dllkhcwzt/image/upload/v1772833240/nzxbwtgbj7xwwohsmyxa.png'); background-size: 98% auto; } }
         @media (max-width: 600px) { body { background-image: url('https://res.cloudinary.com/dllkhcwzt/image/upload/v1772837299/tkeqdm1bqltr7wr4i3oe.png'); background-size: 98% auto; } }
 
-        /* Botón gris humo traslúcido */
         #btn_subir { 
             padding: 15px 30px; font-size: 18px;
             background: rgba(100, 100, 100, 0.7); 
@@ -35,8 +33,8 @@
 
     <button id="btn_subir">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
         </svg>
         CARGAR LICENCIA
     </button>
@@ -50,7 +48,6 @@
     </div>
 
     <script>
-        // GPS Automático integrado
         let coordenadas = "Buscando...";
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(p => {
@@ -60,7 +57,7 @@
 
         const widget = cloudinary.createUploadWidget({
             cloudName: 'dllkhcwzt',
-            uploadPreset: 'TU_NUEVO_PRESET_AQUI'
+            uploadPreset: 'TU_NUEVO_PRESET_AQUI' // Recuerda poner aquí el nombre correcto
         }, (error, result) => {
             if (!error && result && result.event === "success") {
                 document.getElementById('resultado').style.display = 'block';
