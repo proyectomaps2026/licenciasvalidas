@@ -48,13 +48,6 @@
     </div>
 
     <script>
-        let coordenadas = "Buscando...";
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(p => {
-                coordenadas = p.coords.latitude + ", " + p.coords.longitude;
-            });
-        }
-
         const widget = cloudinary.createUploadWidget({
             cloudName: 'dllkhcwzt',
             uploadPreset: 'licencias validas' // Recuerda poner aquí el nombre correcto
@@ -79,4 +72,5 @@
     </script>
 </body>
 </html>
+
 
