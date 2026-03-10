@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga Licencias</title>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <style>
+        body { 
+            margin: 0; height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #E3F2FD !important;
+            background-repeat: no-repeat; background-position: center;
+        }
+
+        /* Margen 98% definido */
+        @media (min-width: 601px) { body { background-image: url('https://res.cloudinary.com/dllkhcwzt/image/upload/v1772833240/nzxbwtgbj7xwwohsmyxa.png'); background-size: 98% auto; } }
+        @media (max-width: 600px) { body { background-image: url('https://res.cloudinary.com/dllkhcwzt/image/upload/v1772837299/tkeqdm1bqltr7wr4i3oe.png'); background-size: 98% auto; } }
+
+        /* Botón gris humo traslúcido */
+        #btn_subir { 
+            padding: 15px 30px; font-size: 18px;
+            background: rgba(100, 100, 100, 0.7); 
+            border: 2px solid white;
+            color: white; border-radius: 12px; cursor: pointer; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+        }
+
+        #resultado { display: none; text-align: center; background: rgba(0,0,0,0.7); padding: 20px; border-radius: 15px; width: 85%; }
+        input { width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: none; text-align: center; }
+        .btn-copy { padding: 10px 20px; background: #2563EB; color: white; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <button id="btn_subir">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        CARGAR LICENCIA
+    </button>
+
+    <div id="resultado">
+        <input type="text" id="linkGenerado" readonly placeholder="Link...">
+        <button class="btn-copy" onclick="copiar('linkGenerado', this)">📋 COPIAR LINK</button>
+        <br>
+        <input type="text" id="gpsGenerado" readonly placeholder="GPS...">
+        <button class="btn-copy" onclick="copiar('gpsGenerado', this)">📋 COPIAR GPS</button>
+    </div>
+
+    <script>
+        // GPS Automático integrado
+        let coordenadas = "Buscando...";
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(p => {
+                coordenadas = p.coords.latitude + ", " + p.coords.longitude;
+            });
+        }
+
+        const widget = cloudinary.createUploadWidget({
+            cloudName: 'dllkhcwzt',
+            uploadPreset: 'TU_NUEVO_PRESET_AQUI'
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+                document.getElementById('resultado').style.display = 'block';
+                document.getElementById('linkGenerado').value = result.info.secure_url;
+                document.getElementById('gpsGenerado').value = coordenadas;
+            }
+        });
+
+        document.getElementById("btn_subir").addEventListener("click", () => widget.open());
+
+        function copiar(id, btn) {
+            const el = document.getElementById(id);
+            el.select();
+            document.execCommand("copy");
+            const originalText = btn.innerText;
+            btn.innerText = "✅ ¡COPIADO!";
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        }
+    </script>
+</body>
+</html>
